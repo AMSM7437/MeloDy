@@ -33,3 +33,7 @@ C:\Users\AMSM\source\repos\MusicProject\MusicProject\obj\Debug\MusicProject.cspr
 C:\Users\AMSM\source\repos\MusicProject\MusicProject\obj\Debug\MusicProject.exe
 C:\Users\AMSM\source\repos\MusicProject\MusicProject\obj\Debug\MusicProject.pdb
 C:\Users\AMSM\source\repos\MusicProject\MusicProject\obj\Debug\MusicPlayer.Form1.resources
+C:\Users\AMSM\source\repos\MusicProject\MusicProject\bin\Debug\Microsoft.WindowsAPICodePack.dll
+C:\Users\AMSM\source\repos\MusicProject\MusicProject\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+C:\Users\AMSM\source\repos\MusicProject\MusicProject\bin\Debug\Microsoft.WindowsAPICodePack.xml
+C:\Users\AMSM\source\repos\MusicProject\MusicProject\bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml

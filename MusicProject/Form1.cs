@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using NAudio.Wave;
 //using TagLib;
 
@@ -56,15 +57,15 @@ namespace MusicPlayer
         }
         private void changeMusicPath()
         {
-            using (var folderDialog = new FolderBrowserDialog())
+            using (var folderDialog = new CommonOpenFileDialog())
             {
 
-                folderDialog.Description = "Please select the music path";
-                folderDialog.ShowNewFolderButton = false;
-                folderDialog.RootFolder = Environment.SpecialFolder.MyComputer;
-                if (folderDialog.ShowDialog() == DialogResult.OK)
+                folderDialog.Title = "Please select the music path";
+                folderDialog.IsFolderPicker = true;
+                //folderDialog.RootFolder = Environment.SpecialFolder.MyComputer;
+                if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
-                    string selectedFolder = folderDialog.SelectedPath;
+                    string selectedFolder = folderDialog.FileName;
                     if (Directory.Exists(selectedFolder))
                     {
                         musicFolder = selectedFolder;
@@ -352,6 +353,11 @@ namespace MusicPlayer
             lblAlbumName.Text = "Album";
             lblArtist.Text = "Artist";
             picAlbumArt.Image = null;
+        }
+
+        private void mainPanel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
