@@ -78,12 +78,12 @@ namespace MusicPlayer
                         changeMusicPath();
                     }
                 }
-                else
-                {
-                    MessageBox.Show("No folder selected - using default");
-                    cleanupSong();
-                    LoadMusic();
-                }
+                //else
+                //{
+                //    MessageBox.Show("No folder selected - using default");
+                //    cleanupSong();
+                //    LoadMusic();
+                //}
             }
         }
         private void SetupPlayer()
@@ -94,17 +94,19 @@ namespace MusicPlayer
 
             if (songListView.Columns.Count == 0)
             {
-                songListView.Columns.Add("Title", 300, HorizontalAlignment.Left);
+                songListView.Columns.Add("Title", 200, HorizontalAlignment.Left);
                 songListView.Columns.Add("Duration", 100, HorizontalAlignment.Right);
                 songListView.Columns.Add("Album", 150, HorizontalAlignment.Left);
                 //songListView.Columns.Add("Duration", 80, HorizontalAlignment.Right);
-                songListView.Columns.Add("Year", 60, HorizontalAlignment.Right);
-                songListView.Columns.Add("Track", 60, HorizontalAlignment.Right);
+                songListView.Columns.Add("Year", 30, HorizontalAlignment.Right);
+                songListView.Columns.Add("Track", 30, HorizontalAlignment.Right);
+              
             }
             //songListView.Columns.Add("Title", 300);
             //songListView.Columns.Add("Duration", 100);
             songListView.FullRowSelect = true;
             songListView.View = View.Details;
+            
 
 
             this.BackColor = Color.FromArgb(30, 30, 30);
@@ -131,6 +133,8 @@ namespace MusicPlayer
                     item.SubItems.Add(fileInfo.Properties.Duration.ToString(@"mm\:ss"));
                     item.SubItems.Add(fileInfo.Tag.Year.ToString());
                     item.SubItems.Add(fileInfo.Tag.Track.ToString());
+                    string total = Convert.ToString(songListView.Items.Count+1 )  ;
+                    lblTotalTracks.Text = total + "  Tracks"; 
 
                     item.Tag = file;
                     songListView.Items.Add(item);

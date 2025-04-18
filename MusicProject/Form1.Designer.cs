@@ -49,20 +49,25 @@
             this.lblCurrentTime = new System.Windows.Forms.Label();
             this.btnPlayPause = new System.Windows.Forms.Button();
             this.headerPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.picAlbumArt = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblNowPlaying = new System.Windows.Forms.Label();
             this.lblArtist = new System.Windows.Forms.Label();
             this.lblAlbumName = new System.Windows.Forms.Label();
             this.Drawer = new System.Windows.Forms.Panel();
+            this.lblTotalTracks = new System.Windows.Forms.Label();
+            this.lblTotalPlayTime = new System.Windows.Forms.Label();
+            this.lblNavHome = new System.Windows.Forms.Label();
+            this.lblNavPlaylist = new System.Windows.Forms.Label();
+            this.lblSeperator = new System.Windows.Forms.Label();
+            this.picAlbumArt = new System.Windows.Forms.PictureBox();
             this.mainPanel.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.controlsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.seekBar)).BeginInit();
             this.headerPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picAlbumArt)).BeginInit();
             this.panel3.SuspendLayout();
+            this.Drawer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAlbumArt)).BeginInit();
             this.SuspendLayout();
             // 
             // mainPanel
@@ -106,13 +111,13 @@
             // Title
             // 
             this.Title.Text = "Title";
-            this.Title.Width = 243;
+            this.Title.Width = 209;
             // 
             // Artist
             // 
             this.Artist.DisplayIndex = 5;
             this.Artist.Text = "Artist";
-            this.Artist.Width = 232;
+            this.Artist.Width = 179;
             // 
             // Album
             // 
@@ -130,13 +135,13 @@
             // 
             this.Year.DisplayIndex = 2;
             this.Year.Text = "Year";
-            this.Year.Width = 62;
+            this.Year.Width = 102;
             // 
             // Track
             // 
             this.Track.DisplayIndex = 3;
             this.Track.Text = "Track";
-            this.Track.Width = 56;
+            this.Track.Width = 105;
             // 
             // panel1
             // 
@@ -153,17 +158,16 @@
             // panel5
             // 
             this.panel5.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel5.Location = new System.Drawing.Point(673, 0);
+            this.panel5.Location = new System.Drawing.Point(647, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(169, 89);
+            this.panel5.Size = new System.Drawing.Size(195, 89);
             this.panel5.TabIndex = 8;
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.btnChangeMusicPath);
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(254, 99);
+            this.panel4.Size = new System.Drawing.Size(192, 99);
             this.panel4.TabIndex = 7;
             // 
             // btnChangeMusicPath
@@ -171,7 +175,7 @@
             this.btnChangeMusicPath.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.btnChangeMusicPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnChangeMusicPath.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnChangeMusicPath.Location = new System.Drawing.Point(3, 63);
+            this.btnChangeMusicPath.Location = new System.Drawing.Point(29, 588);
             this.btnChangeMusicPath.Name = "btnChangeMusicPath";
             this.btnChangeMusicPath.Size = new System.Drawing.Size(84, 23);
             this.btnChangeMusicPath.TabIndex = 7;
@@ -187,9 +191,9 @@
             this.controlsPanel.Controls.Add(this.slash);
             this.controlsPanel.Controls.Add(this.lblCurrentTime);
             this.controlsPanel.Controls.Add(this.btnPlayPause);
-            this.controlsPanel.Location = new System.Drawing.Point(250, 3);
+            this.controlsPanel.Location = new System.Drawing.Point(206, 7);
             this.controlsPanel.Name = "controlsPanel";
-            this.controlsPanel.Size = new System.Drawing.Size(417, 88);
+            this.controlsPanel.Size = new System.Drawing.Size(435, 88);
             this.controlsPanel.TabIndex = 6;
             // 
             // seekBar
@@ -275,27 +279,17 @@
             this.headerPanel.Size = new System.Drawing.Size(842, 191);
             this.headerPanel.TabIndex = 0;
             // 
-            // picAlbumArt
-            // 
-            this.picAlbumArt.BackColor = System.Drawing.Color.Transparent;
-            this.picAlbumArt.Dock = System.Windows.Forms.DockStyle.Left;
-            this.picAlbumArt.Location = new System.Drawing.Point(0, 0);
-            this.picAlbumArt.Margin = new System.Windows.Forms.Padding(0);
-            this.picAlbumArt.Name = "picAlbumArt";
-            this.picAlbumArt.Size = new System.Drawing.Size(189, 178);
-            this.picAlbumArt.TabIndex = 0;
-            this.picAlbumArt.TabStop = false;
-            this.picAlbumArt.Click += new System.EventHandler(this.picAlbumArt_Click);
-            // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.lblTotalPlayTime);
+            this.panel3.Controls.Add(this.lblTotalTracks);
             this.panel3.Controls.Add(this.picAlbumArt);
             this.panel3.Controls.Add(this.lblNowPlaying);
             this.panel3.Controls.Add(this.lblArtist);
             this.panel3.Controls.Add(this.lblAlbumName);
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(737, 178);
+            this.panel3.Size = new System.Drawing.Size(734, 188);
             this.panel3.TabIndex = 5;
             // 
             // lblNowPlaying
@@ -304,7 +298,7 @@
             this.lblNowPlaying.AutoSize = true;
             this.lblNowPlaying.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNowPlaying.ForeColor = System.Drawing.Color.White;
-            this.lblNowPlaying.Location = new System.Drawing.Point(192, 6);
+            this.lblNowPlaying.Location = new System.Drawing.Point(198, 16);
             this.lblNowPlaying.Name = "lblNowPlaying";
             this.lblNowPlaying.Size = new System.Drawing.Size(64, 30);
             this.lblNowPlaying.TabIndex = 4;
@@ -315,7 +309,7 @@
             this.lblArtist.AutoSize = true;
             this.lblArtist.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblArtist.ForeColor = System.Drawing.Color.Silver;
-            this.lblArtist.Location = new System.Drawing.Point(192, 82);
+            this.lblArtist.Location = new System.Drawing.Point(198, 103);
             this.lblArtist.Name = "lblArtist";
             this.lblArtist.Size = new System.Drawing.Size(61, 25);
             this.lblArtist.TabIndex = 5;
@@ -326,7 +320,7 @@
             this.lblAlbumName.AutoSize = true;
             this.lblAlbumName.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAlbumName.ForeColor = System.Drawing.Color.Silver;
-            this.lblAlbumName.Location = new System.Drawing.Point(192, 45);
+            this.lblAlbumName.Location = new System.Drawing.Point(198, 60);
             this.lblAlbumName.Name = "lblAlbumName";
             this.lblAlbumName.Size = new System.Drawing.Size(71, 25);
             this.lblAlbumName.TabIndex = 6;
@@ -335,11 +329,88 @@
             // Drawer
             // 
             this.Drawer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.Drawer.Controls.Add(this.btnChangeMusicPath);
+            this.Drawer.Controls.Add(this.lblSeperator);
+            this.Drawer.Controls.Add(this.lblNavPlaylist);
+            this.Drawer.Controls.Add(this.lblNavHome);
             this.Drawer.Dock = System.Windows.Forms.DockStyle.Left;
             this.Drawer.Location = new System.Drawing.Point(0, 0);
             this.Drawer.Name = "Drawer";
             this.Drawer.Size = new System.Drawing.Size(146, 625);
             this.Drawer.TabIndex = 3;
+            // 
+            // lblTotalTracks
+            // 
+            this.lblTotalTracks.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblTotalTracks.AutoSize = true;
+            this.lblTotalTracks.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalTracks.ForeColor = System.Drawing.Color.White;
+            this.lblTotalTracks.Location = new System.Drawing.Point(199, 155);
+            this.lblTotalTracks.Name = "lblTotalTracks";
+            this.lblTotalTracks.Size = new System.Drawing.Size(97, 21);
+            this.lblTotalTracks.TabIndex = 8;
+            this.lblTotalTracks.Text = "○ 20 Tracks";
+            // 
+            // lblTotalPlayTime
+            // 
+            this.lblTotalPlayTime.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblTotalPlayTime.AutoSize = true;
+            this.lblTotalPlayTime.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalPlayTime.ForeColor = System.Drawing.Color.White;
+            this.lblTotalPlayTime.Location = new System.Drawing.Point(345, 155);
+            this.lblTotalPlayTime.Name = "lblTotalPlayTime";
+            this.lblTotalPlayTime.Size = new System.Drawing.Size(91, 21);
+            this.lblTotalPlayTime.TabIndex = 9;
+            this.lblTotalPlayTime.Text = "◷ 00:32:02";
+            // 
+            // lblNavHome
+            // 
+            this.lblNavHome.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblNavHome.AutoSize = true;
+            this.lblNavHome.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNavHome.ForeColor = System.Drawing.Color.White;
+            this.lblNavHome.Location = new System.Drawing.Point(27, 22);
+            this.lblNavHome.Name = "lblNavHome";
+            this.lblNavHome.Size = new System.Drawing.Size(84, 21);
+            this.lblNavHome.TabIndex = 9;
+            this.lblNavHome.Text = "♪ Home ♪";
+            // 
+            // lblNavPlaylist
+            // 
+            this.lblNavPlaylist.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblNavPlaylist.AutoSize = true;
+            this.lblNavPlaylist.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNavPlaylist.ForeColor = System.Drawing.Color.White;
+            this.lblNavPlaylist.Location = new System.Drawing.Point(25, 69);
+            this.lblNavPlaylist.Name = "lblNavPlaylist";
+            this.lblNavPlaylist.Size = new System.Drawing.Size(94, 21);
+            this.lblNavPlaylist.TabIndex = 10;
+            this.lblNavPlaylist.Text = "♪ Playlist ♪";
+            // 
+            // lblSeperator
+            // 
+            this.lblSeperator.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblSeperator.AutoSize = true;
+            this.lblSeperator.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeperator.ForeColor = System.Drawing.Color.White;
+            this.lblSeperator.Location = new System.Drawing.Point(15, 39);
+            this.lblSeperator.Name = "lblSeperator";
+            this.lblSeperator.Size = new System.Drawing.Size(115, 21);
+            this.lblSeperator.TabIndex = 11;
+            this.lblSeperator.Text = "_______________";
+            // 
+            // picAlbumArt
+            // 
+            this.picAlbumArt.BackColor = System.Drawing.Color.Transparent;
+            this.picAlbumArt.Dock = System.Windows.Forms.DockStyle.Left;
+            this.picAlbumArt.Location = new System.Drawing.Point(0, 0);
+            this.picAlbumArt.Margin = new System.Windows.Forms.Padding(0);
+            this.picAlbumArt.Name = "picAlbumArt";
+            this.picAlbumArt.Size = new System.Drawing.Size(189, 188);
+            this.picAlbumArt.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.picAlbumArt.TabIndex = 0;
+            this.picAlbumArt.TabStop = false;
+            this.picAlbumArt.Click += new System.EventHandler(this.picAlbumArt_Click);
             // 
             // Form1
             // 
@@ -348,18 +419,24 @@
             this.ClientSize = new System.Drawing.Size(988, 625);
             this.Controls.Add(this.mainPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(1004, 664);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(1004, 664);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MeloDy";
             this.mainPanel.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
             this.controlsPanel.ResumeLayout(false);
             this.controlsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.seekBar)).EndInit();
             this.headerPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picAlbumArt)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.Drawer.ResumeLayout(false);
+            this.Drawer.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAlbumArt)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -392,6 +469,11 @@
         private System.Windows.Forms.Label lblArtist;
         private System.Windows.Forms.Label lblAlbumName;
         private System.Windows.Forms.Panel Drawer;
+        private System.Windows.Forms.Label lblTotalPlayTime;
+        private System.Windows.Forms.Label lblTotalTracks;
+        private System.Windows.Forms.Label lblSeperator;
+        private System.Windows.Forms.Label lblNavPlaylist;
+        private System.Windows.Forms.Label lblNavHome;
     }
 }
 
