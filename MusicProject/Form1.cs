@@ -352,6 +352,7 @@ namespace MusicPlayer
             lblAlbumName.Text = "Album";
             lblArtist.Text = "Artist";
             picAlbumArt.Image = null;
+            //test
         }
     }
 }
