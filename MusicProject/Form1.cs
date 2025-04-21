@@ -439,7 +439,8 @@ namespace MusicPlayer
         }
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            searchCategorized();
+            if (!string.IsNullOrEmpty(txtSearch.Text)) {   searchCategorized(); }
+         
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -449,8 +450,9 @@ namespace MusicPlayer
 
         private void btnClearSearch_Click(object sender, EventArgs e)
         {
-            txtSearch.Clear();
-            searchCategorized();
+            if (!string.IsNullOrEmpty(txtSearch.Text)) {  txtSearch.Clear();
+            searchCategorized();}
+           
         }
         private void UpdateTotalPlayTime()
         {
