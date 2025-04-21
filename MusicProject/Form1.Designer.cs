@@ -49,6 +49,9 @@
             this.btnPlayPause = new System.Windows.Forms.Button();
             this.headerPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.lblTracksIcon = new System.Windows.Forms.Label();
+            this.lblTimeIcon = new System.Windows.Forms.Label();
+            this.btnClearSearch = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.lblTotalPlayTime = new System.Windows.Forms.Label();
@@ -59,13 +62,12 @@
             this.lblArtist = new System.Windows.Forms.Label();
             this.lblAlbumName = new System.Windows.Forms.Label();
             this.Drawer = new System.Windows.Forms.Panel();
+            this.btnSyncCache = new System.Windows.Forms.Button();
             this.btnChangeMusicPath = new System.Windows.Forms.Button();
             this.lblSeperator = new System.Windows.Forms.Label();
             this.lblNavPlaylist = new System.Windows.Forms.Label();
             this.lblNavHome = new System.Windows.Forms.Label();
-            this.btnClearSearch = new System.Windows.Forms.Button();
-            this.lblTimeIcon = new System.Windows.Forms.Label();
-            this.lblTracksIcon = new System.Windows.Forms.Label();
+            this.btnPrevious = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.controlsPanel.SuspendLayout();
@@ -88,7 +90,6 @@
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(988, 625);
             this.mainPanel.TabIndex = 0;
-            this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPanel_Paint);
             // 
             // songListView
             // 
@@ -178,11 +179,12 @@
             // 
             // controlsPanel
             // 
+            this.controlsPanel.Controls.Add(this.lblTotalTime);
+            this.controlsPanel.Controls.Add(this.lblCurrentTime);
+            this.controlsPanel.Controls.Add(this.btnPrevious);
+            this.controlsPanel.Controls.Add(this.slash);
             this.controlsPanel.Controls.Add(this.seekBar);
             this.controlsPanel.Controls.Add(this.btnNext);
-            this.controlsPanel.Controls.Add(this.lblTotalTime);
-            this.controlsPanel.Controls.Add(this.slash);
-            this.controlsPanel.Controls.Add(this.lblCurrentTime);
             this.controlsPanel.Controls.Add(this.btnPlayPause);
             this.controlsPanel.Location = new System.Drawing.Point(206, 7);
             this.controlsPanel.Name = "controlsPanel";
@@ -195,7 +197,7 @@
             this.seekBar.Location = new System.Drawing.Point(10, 47);
             this.seekBar.Maximum = 0;
             this.seekBar.Name = "seekBar";
-            this.seekBar.Size = new System.Drawing.Size(372, 45);
+            this.seekBar.Size = new System.Drawing.Size(422, 45);
             this.seekBar.TabIndex = 1;
             this.seekBar.TickStyle = System.Windows.Forms.TickStyle.None;
             this.seekBar.Scroll += new System.EventHandler(this.seekBar_Scroll);
@@ -206,11 +208,11 @@
             this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNext.ForeColor = System.Drawing.Color.White;
-            this.btnNext.Location = new System.Drawing.Point(239, 3);
+            this.btnNext.Location = new System.Drawing.Point(247, 9);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(40, 38);
             this.btnNext.TabIndex = 5;
-            this.btnNext.Text = "⏭";
+            this.btnNext.Text = "⏩";
             this.btnNext.UseVisualStyleBackColor = false;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
@@ -219,7 +221,7 @@
             this.lblTotalTime.AutoSize = true;
             this.lblTotalTime.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalTime.ForeColor = System.Drawing.Color.White;
-            this.lblTotalTime.Location = new System.Drawing.Point(121, 10);
+            this.lblTotalTime.Location = new System.Drawing.Point(382, 17);
             this.lblTotalTime.Name = "lblTotalTime";
             this.lblTotalTime.Size = new System.Drawing.Size(50, 21);
             this.lblTotalTime.TabIndex = 4;
@@ -230,7 +232,7 @@
             this.slash.AutoSize = true;
             this.slash.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.slash.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.slash.Location = new System.Drawing.Point(98, 10);
+            this.slash.Location = new System.Drawing.Point(359, 17);
             this.slash.Name = "slash";
             this.slash.Size = new System.Drawing.Size(17, 21);
             this.slash.TabIndex = 3;
@@ -241,7 +243,7 @@
             this.lblCurrentTime.AutoSize = true;
             this.lblCurrentTime.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCurrentTime.ForeColor = System.Drawing.Color.White;
-            this.lblCurrentTime.Location = new System.Drawing.Point(42, 10);
+            this.lblCurrentTime.Location = new System.Drawing.Point(303, 17);
             this.lblCurrentTime.Name = "lblCurrentTime";
             this.lblCurrentTime.Size = new System.Drawing.Size(50, 21);
             this.lblCurrentTime.TabIndex = 2;
@@ -253,7 +255,7 @@
             this.btnPlayPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPlayPause.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPlayPause.ForeColor = System.Drawing.Color.White;
-            this.btnPlayPause.Location = new System.Drawing.Point(180, 3);
+            this.btnPlayPause.Location = new System.Drawing.Point(189, 9);
             this.btnPlayPause.Name = "btnPlayPause";
             this.btnPlayPause.Size = new System.Drawing.Size(40, 38);
             this.btnPlayPause.TabIndex = 0;
@@ -290,6 +292,43 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(839, 188);
             this.panel3.TabIndex = 5;
+            // 
+            // lblTracksIcon
+            // 
+            this.lblTracksIcon.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblTracksIcon.AutoSize = true;
+            this.lblTracksIcon.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTracksIcon.ForeColor = System.Drawing.Color.White;
+            this.lblTracksIcon.Location = new System.Drawing.Point(235, 155);
+            this.lblTracksIcon.Name = "lblTracksIcon";
+            this.lblTracksIcon.Size = new System.Drawing.Size(24, 21);
+            this.lblTracksIcon.TabIndex = 17;
+            this.lblTracksIcon.Text = "○";
+            // 
+            // lblTimeIcon
+            // 
+            this.lblTimeIcon.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblTimeIcon.AutoSize = true;
+            this.lblTimeIcon.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTimeIcon.ForeColor = System.Drawing.Color.White;
+            this.lblTimeIcon.Location = new System.Drawing.Point(379, 155);
+            this.lblTimeIcon.Name = "lblTimeIcon";
+            this.lblTimeIcon.Size = new System.Drawing.Size(25, 21);
+            this.lblTimeIcon.TabIndex = 16;
+            this.lblTimeIcon.Text = "◷";
+            // 
+            // btnClearSearch
+            // 
+            this.btnClearSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.btnClearSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClearSearch.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnClearSearch.Location = new System.Drawing.Point(709, 36);
+            this.btnClearSearch.Name = "btnClearSearch";
+            this.btnClearSearch.Size = new System.Drawing.Size(56, 21);
+            this.btnClearSearch.TabIndex = 15;
+            this.btnClearSearch.Text = "Clear";
+            this.btnClearSearch.UseVisualStyleBackColor = false;
+            this.btnClearSearch.Click += new System.EventHandler(this.btnClearSearch_Click);
             // 
             // btnSearch
             // 
@@ -398,6 +437,7 @@
             // Drawer
             // 
             this.Drawer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.Drawer.Controls.Add(this.btnSyncCache);
             this.Drawer.Controls.Add(this.btnChangeMusicPath);
             this.Drawer.Controls.Add(this.lblSeperator);
             this.Drawer.Controls.Add(this.lblNavPlaylist);
@@ -407,6 +447,19 @@
             this.Drawer.Name = "Drawer";
             this.Drawer.Size = new System.Drawing.Size(146, 625);
             this.Drawer.TabIndex = 3;
+            // 
+            // btnSyncCache
+            // 
+            this.btnSyncCache.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.btnSyncCache.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSyncCache.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnSyncCache.Location = new System.Drawing.Point(29, 556);
+            this.btnSyncCache.Name = "btnSyncCache";
+            this.btnSyncCache.Size = new System.Drawing.Size(84, 23);
+            this.btnSyncCache.TabIndex = 12;
+            this.btnSyncCache.Text = "Sync Library";
+            this.btnSyncCache.UseVisualStyleBackColor = false;
+            this.btnSyncCache.Click += new System.EventHandler(this.btnSyncCache_Click);
             // 
             // btnChangeMusicPath
             // 
@@ -457,42 +510,19 @@
             this.lblNavHome.TabIndex = 9;
             this.lblNavHome.Text = "♪ Home ♪";
             // 
-            // btnClearSearch
+            // btnPrevious
             // 
-            this.btnClearSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.btnClearSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClearSearch.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnClearSearch.Location = new System.Drawing.Point(709, 36);
-            this.btnClearSearch.Name = "btnClearSearch";
-            this.btnClearSearch.Size = new System.Drawing.Size(56, 21);
-            this.btnClearSearch.TabIndex = 15;
-            this.btnClearSearch.Text = "Clear";
-            this.btnClearSearch.UseVisualStyleBackColor = false;
-            this.btnClearSearch.Click += new System.EventHandler(this.btnClearSearch_Click);
-            // 
-            // lblTimeIcon
-            // 
-            this.lblTimeIcon.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblTimeIcon.AutoSize = true;
-            this.lblTimeIcon.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeIcon.ForeColor = System.Drawing.Color.White;
-            this.lblTimeIcon.Location = new System.Drawing.Point(379, 155);
-            this.lblTimeIcon.Name = "lblTimeIcon";
-            this.lblTimeIcon.Size = new System.Drawing.Size(25, 21);
-            this.lblTimeIcon.TabIndex = 16;
-            this.lblTimeIcon.Text = "◷";
-            // 
-            // lblTracksIcon
-            // 
-            this.lblTracksIcon.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblTracksIcon.AutoSize = true;
-            this.lblTracksIcon.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTracksIcon.ForeColor = System.Drawing.Color.White;
-            this.lblTracksIcon.Location = new System.Drawing.Point(235, 155);
-            this.lblTracksIcon.Name = "lblTracksIcon";
-            this.lblTracksIcon.Size = new System.Drawing.Size(24, 21);
-            this.lblTracksIcon.TabIndex = 17;
-            this.lblTracksIcon.Text = "○";
+            this.btnPrevious.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.btnPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrevious.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrevious.ForeColor = System.Drawing.Color.White;
+            this.btnPrevious.Location = new System.Drawing.Point(131, 9);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(40, 38);
+            this.btnPrevious.TabIndex = 6;
+            this.btnPrevious.Text = "⏪";
+            this.btnPrevious.UseVisualStyleBackColor = false;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
             // Form1
             // 
@@ -562,6 +592,8 @@
         private System.Windows.Forms.Button btnClearSearch;
         private System.Windows.Forms.Label lblTracksIcon;
         private System.Windows.Forms.Label lblTimeIcon;
+        private System.Windows.Forms.Button btnSyncCache;
+        private System.Windows.Forms.Button btnPrevious;
     }
 }
 

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Xml;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using NAudio.Wave;
 //using TagLib;
@@ -15,6 +17,7 @@ namespace MusicPlayer
         private AudioFileReader audioFile;
 
         private string currentSongPath;
+
         private bool isPlaying = false;
         private bool isPaused = false;
 
@@ -22,6 +25,7 @@ namespace MusicPlayer
 
         private string musicFolder;
         private string defaultMusicPathConfig = @".\musicPath.config";
+        //List<Song> allSongs = new List<Song>();   
 
 
 
@@ -71,12 +75,14 @@ namespace MusicPlayer
                         musicFolder = selectedFolder;
                         System.IO.File.WriteAllText(defaultMusicPathConfig, musicFolder);
                         cleanupSong();
+                        GenerateMusicXmlCache();
                         LoadMusic();
                     }
                     else
                     {
                         changeMusicPath();
                     }
+
                 }
                 //else
                 //{
@@ -89,7 +95,7 @@ namespace MusicPlayer
         private void SetupPlayer()
         {
             cmbSearchType.SelectedIndex = 0;
-            progressTimer = new Timer { Interval = 200 };
+            progressTimer = new Timer { Interval = 1000 };
             progressTimer.Tick += ProgressTimer_Tick;
 
             if (songListView.Columns.Count == 0)
@@ -115,70 +121,104 @@ namespace MusicPlayer
 
             InitializeMusicFolder();
         }
-        private void AddSongToListView(string file, TagLib.File fileInfo)
-        {
-            var item = new ListViewItem(fileInfo.Tag.Title ?? Path.GetFileNameWithoutExtension(file));
-            item.SubItems.Add(fileInfo.Tag.FirstPerformer ?? "Unknown Artist");
-            item.SubItems.Add(fileInfo.Tag.Album ?? "Unknown Album");
-            item.SubItems.Add(fileInfo.Properties.Duration.ToString(@"mm\:ss"));
-            item.SubItems.Add(fileInfo.Tag.Year.ToString());
-            item.SubItems.Add(fileInfo.Tag.Track.ToString());
-            item.Tag = file;
-            songListView.Items.Add(item);
-        }
+
         private void LoadMusic()
         {
-            try
+            songListView.Items.Clear();
+
+
+            string cachePath = @".\musicCache.xml";
+            if (!File.Exists(cachePath))
             {
-                songListView.Items.Clear();
-                var musicFiles = Directory.GetFiles(musicFolder, "*.mp3" , SearchOption.AllDirectories);
-
-                foreach (var file in musicFiles)
-                {
-                    var fileInfo = TagLib.File.Create(file);
-                    AddSongToListView(file, fileInfo);
-
-
-
-                }
-                lblTotalTracks.Text = songListView.Items.Count + " Tracks";
-                UpdateTotalPlayTime();
+                GenerateMusicXmlCache();
             }
-            catch (Exception ex)
+            songListView.BeginUpdate();
+            XmlDocument doc = new XmlDocument();
+            doc.Load(cachePath);
+            foreach (XmlNode node in doc.SelectNodes("//Song"))
             {
-                MessageBox.Show($"Error loading music: {ex.Message}");
+                var item = new ListViewItem(node.Attributes["Title"]?.Value ?? "Unknown Title");
+                item.SubItems.Add(node.Attributes["Artist"]?.Value ?? "Unknown Artist");
+                item.SubItems.Add(node.Attributes["Album"]?.Value ?? "Unknown Album");
+                item.SubItems.Add(node.Attributes["Duration"]?.Value ?? "00:00");
+                item.SubItems.Add(node.Attributes["Year"]?.Value ?? "");
+                item.SubItems.Add(node.Attributes["Track"]?.Value ?? "");
+                item.Tag = node.Attributes["Path"]?.Value;
+
+                songListView.Items.Add(item);
             }
+            songListView.EndUpdate();
+            lblTotalTracks.Text = $"{songListView.Items.Count} Tracks";
+            UpdateTotalPlayTime();
         }
+
+        private void GenerateMusicXmlCache()
+        {
+            var musicFiles = Directory.GetFiles(musicFolder, "*.mp3", SearchOption.AllDirectories);
+            var doc = new XmlDocument();
+            var root = doc.CreateElement("Songs");
+            doc.AppendChild(root);
+
+            foreach (var file in musicFiles)
+            {
+                try
+                {
+                    var tagFile = TagLib.File.Create(file);
+                    var songNode = doc.CreateElement("Song");
+                    songNode.SetAttribute("Path", file);
+                    songNode.SetAttribute("Title", tagFile.Tag.Title ?? Path.GetFileNameWithoutExtension(file));
+                    songNode.SetAttribute("Album", tagFile.Tag.Album ?? "Unknown Album");
+                    songNode.SetAttribute("Artist", tagFile.Tag.FirstPerformer ?? "Unknown Artist");
+                    songNode.SetAttribute("Duration", tagFile.Properties.Duration.ToString(@"mm\:ss"));
+                    songNode.SetAttribute("Year", tagFile.Tag.Year.ToString());
+                    songNode.SetAttribute("Track", tagFile.Tag.Track.ToString());
+
+                    root.AppendChild(songNode);
+                }
+                catch
+                {
+                }
+            }
+
+            string cachePath = @".\musicCache.xml";
+            doc.Save(cachePath);
+        }
+
 
         private void UpdateNowPlaying(string filePath)
         {
-            var fileInfo = TagLib.File.Create(filePath);
+            if (!File.Exists(filePath)) return;
 
-            lblNowPlaying.Text = fileInfo.Tag.Title ?? Path.GetFileNameWithoutExtension(filePath);
-            lblAlbumName.Text = fileInfo.Tag.Album ?? "Unknown Album";
-            lblArtist.Text = fileInfo.Tag.FirstAlbumArtist ?? "Unknown Artist";
-
-            if (fileInfo.Tag.Pictures.Length > 0)
+            try
             {
-                using (var ms = new MemoryStream(fileInfo.Tag.Pictures[0].Data.Data))
+                var fileInfo = TagLib.File.Create(filePath);
+                lblNowPlaying.Text = fileInfo.Tag.Title ?? Path.GetFileNameWithoutExtension(filePath);
+                lblAlbumName.Text = fileInfo.Tag.Album ?? "Unknown Album";
+                lblArtist.Text = fileInfo.Tag.FirstAlbumArtist ?? "Unknown Artist";
+
+                if (fileInfo.Tag.Pictures.Length > 0)
                 {
-                    picAlbumArt.Image = Image.FromStream(ms);
-                    picAlbumArt.SizeMode = PictureBoxSizeMode.Zoom;
+                    using (var ms = new MemoryStream(fileInfo.Tag.Pictures[0].Data.Data))
+                    {
+                        picAlbumArt.Image = Image.FromStream(ms);
+                        picAlbumArt.SizeMode = PictureBoxSizeMode.Zoom;
+                    }
+
                 }
+                else
+                {
+                    picAlbumArt.Image = null;
+                }
+
+                seekBar.Maximum = (int)audioFile.TotalTime.TotalSeconds;
+                lblTotalTime.Text = audioFile.TotalTime.ToString(@"mm\:ss");
             }
-            else
+            catch (Exception ex)
             {
-                picAlbumArt.Image = null;
-
-
-
-
+                MessageBox.Show($"Error reading metadata: {ex.Message}");
             }
-
-
-            seekBar.Maximum = (int)audioFile.TotalTime.TotalSeconds;
-            lblTotalTime.Text = audioFile.TotalTime.ToString(@"mm\:ss");
         }
+
 
         private void PlaySong(string filePath)
         {
@@ -230,7 +270,6 @@ namespace MusicPlayer
 
         private void btnPlayPause_Click(object sender, EventArgs e)
         {
-            // If no song is selected but a song is playing, toggle pause/resume
             if (songListView.SelectedItems.Count == 0 && isPlaying)
             {
                 if (isPaused)
@@ -240,7 +279,6 @@ namespace MusicPlayer
                 return;
             }
 
-            // If a song is selected, play it (even if it's not visible in the filtered list)
             if (songListView.SelectedItems.Count > 0)
             {
                 string selectedSong = songListView.SelectedItems[0].Tag.ToString();
@@ -306,11 +344,9 @@ namespace MusicPlayer
                     nextIndex = 0;
             }
 
-            // Clear selection and focus
             songListView.SelectedIndices.Clear();
             songListView.FocusedItem = null;
 
-            // Select the next song
             songListView.Items[nextIndex].Selected = true;
             songListView.Items[nextIndex].Focused = true;
             songListView.EnsureVisible(nextIndex);
@@ -325,17 +361,22 @@ namespace MusicPlayer
             int prevIndex = 0;
             if (songListView.SelectedItems.Count > 0)
             {
-                // Clear all selections first
-                songListView.SelectedItems.Clear();
-
+            
                 prevIndex = songListView.SelectedIndices[0] - 1;
+                songListView.SelectedItems.Clear();
+                //songListView.Items[prevIndex].Selected = true;
+                
+                //songListView.EnsureVisible(prevIndex);
+
                 if (prevIndex < 0)
                     prevIndex = songListView.Items.Count - 1;
+                songListView.Items[prevIndex].Focused = true;
+                return;
             }
 
-            // Select and play the previous song
+
             songListView.Items[prevIndex].Selected = true;
-            songListView.EnsureVisible(prevIndex); // Scroll to the item if needed
+            songListView.EnsureVisible(prevIndex);
             PlaySong(songListView.Items[prevIndex].Tag.ToString());
         }
 
@@ -387,10 +428,7 @@ namespace MusicPlayer
             picAlbumArt.Image = null;
         }
 
-        private void mainPanel_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
         private void searchCategorized()
         {
             string searchText = txtSearch.Text.ToLower();
@@ -398,7 +436,7 @@ namespace MusicPlayer
 
             songListView.BeginUpdate();
             songListView.Items.Clear();
-            var musicFiles = Directory.GetFiles(musicFolder, "*.mp3" , SearchOption.AllDirectories);
+            var musicFiles = Directory.GetFiles(musicFolder, "*.mp3", SearchOption.AllDirectories);
 
             foreach (var file in musicFiles)
             {
@@ -439,8 +477,8 @@ namespace MusicPlayer
         }
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtSearch.Text)) {   searchCategorized(); }
-         
+            if (!string.IsNullOrEmpty(txtSearch.Text)) { searchCategorized(); }
+
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -450,9 +488,12 @@ namespace MusicPlayer
 
         private void btnClearSearch_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtSearch.Text)) {  txtSearch.Clear();
-            searchCategorized();}
-           
+            if (!string.IsNullOrEmpty(txtSearch.Text))
+            {
+                txtSearch.Clear();
+                searchCategorized();
+            }
+
         }
         private void UpdateTotalPlayTime()
         {
@@ -479,6 +520,22 @@ namespace MusicPlayer
         {
             return $"{(int)duration.TotalHours}:{duration:mm\\:ss}";
         }
+
+        private void btnSyncCache_Click(object sender, EventArgs e)
+        {
+            GenerateMusicXmlCache();
+        }
+
     }
-   
+    //public class Song
+    //{
+    //    public string Title { get; set; }
+    //    public string Artist { get; set; }
+    //    public string Album { get; set; }
+    //    public string Duration { get; set; }
+    //    public string Year { get; set; }
+    //    public string Track { get; set; }
+    //    public string Path { get; set; }
+    //}
+
 }
