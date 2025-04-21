@@ -31,6 +31,7 @@ namespace MusicPlayer
 
             SetupPlayer();
         }
+
         private void InitializeMusicFolder()
         {
 
