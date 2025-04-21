@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Xml;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using NAudio.Wave;
+
 //using TagLib;
 
 namespace MusicPlayer
@@ -25,6 +26,7 @@ namespace MusicPlayer
 
         private string musicFolder;
         private string defaultMusicPathConfig = @".\musicPath.config";
+        //private string playlistDirectory = @".\playlists";
         //List<Song> allSongs = new List<Song>();   
 
 
@@ -341,7 +343,10 @@ namespace MusicPlayer
             {
                 nextIndex = songListView.SelectedIndices[0] + 1;
                 if (nextIndex >= songListView.Items.Count)
+                {
                     nextIndex = 0;
+                }
+
             }
 
             songListView.SelectedIndices.Clear();
@@ -354,28 +359,48 @@ namespace MusicPlayer
             PlaySong(songListView.Items[nextIndex].Tag.ToString());
         }
 
+        //private void PlayPreviousSong()
+        //{
+        //    if (songListView.Items.Count == 0) return;
+
+        //    int prevIndex = 0;
+        //    if (songListView.SelectedItems.Count > 0)
+        //    {
+
+        //        prevIndex = songListView.SelectedIndices[0] - 1;
+        //        if (prevIndex <= songListView.Items.Count)
+        //        {
+        //            prevIndex = 0;
+        //        }
+
+        //    }
+        //    songListView.SelectedIndices.Clear();
+        //    songListView.FocusedItem = null;
+
+        //    songListView.Items[prevIndex].Selected = true;
+        //    songListView.Items[prevIndex].Focused = true;
+        //    songListView.EnsureVisible(prevIndex);
+        //    PlaySong(songListView.Items[prevIndex].Tag.ToString());
+        //}
         private void PlayPreviousSong()
         {
             if (songListView.Items.Count == 0) return;
 
-            int prevIndex = 0;
+            int prevIndex = songListView.Items.Count - 1; 
             if (songListView.SelectedItems.Count > 0)
             {
-            
                 prevIndex = songListView.SelectedIndices[0] - 1;
-                songListView.SelectedItems.Clear();
-                //songListView.Items[prevIndex].Selected = true;
-                
-                //songListView.EnsureVisible(prevIndex);
-
-                if (prevIndex < 0)
-                    prevIndex = songListView.Items.Count - 1;
-                songListView.Items[prevIndex].Focused = true;
-                return;
+                if (prevIndex < 0) 
+                {
+                    prevIndex = songListView.Items.Count - 1; 
+                }
             }
 
+            songListView.SelectedIndices.Clear();
+            songListView.FocusedItem = null;
 
             songListView.Items[prevIndex].Selected = true;
+            songListView.Items[prevIndex].Focused = true;
             songListView.EnsureVisible(prevIndex);
             PlaySong(songListView.Items[prevIndex].Tag.ToString());
         }
@@ -405,11 +430,6 @@ namespace MusicPlayer
             progressTimer?.Stop();
             outputDevice?.Dispose();
             audioFile?.Dispose();
-        }
-
-        private void songListView_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void btnChangeMusicPath_Click(object sender, EventArgs e)

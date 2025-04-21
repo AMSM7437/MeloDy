@@ -38,14 +38,15 @@
             this.Year = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Track = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
+            this.visualizerPanel = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.controlsPanel = new System.Windows.Forms.Panel();
+            this.lblTotalTime = new System.Windows.Forms.Label();
+            this.lblCurrentTime = new System.Windows.Forms.Label();
+            this.btnPrevious = new System.Windows.Forms.Button();
+            this.slash = new System.Windows.Forms.Label();
             this.seekBar = new System.Windows.Forms.TrackBar();
             this.btnNext = new System.Windows.Forms.Button();
-            this.lblTotalTime = new System.Windows.Forms.Label();
-            this.slash = new System.Windows.Forms.Label();
-            this.lblCurrentTime = new System.Windows.Forms.Label();
             this.btnPlayPause = new System.Windows.Forms.Button();
             this.headerPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -67,7 +68,6 @@
             this.lblSeperator = new System.Windows.Forms.Label();
             this.lblNavPlaylist = new System.Windows.Forms.Label();
             this.lblNavHome = new System.Windows.Forms.Label();
-            this.btnPrevious = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.controlsPanel.SuspendLayout();
@@ -112,7 +112,6 @@
             this.songListView.TabIndex = 1;
             this.songListView.UseCompatibleStateImageBehavior = false;
             this.songListView.View = System.Windows.Forms.View.Details;
-            this.songListView.SelectedIndexChanged += new System.EventHandler(this.songListView_SelectedIndexChanged);
             this.songListView.DoubleClick += new System.EventHandler(this.songListView_DoubleClick);
             // 
             // Title
@@ -153,7 +152,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.panel5);
+            this.panel1.Controls.Add(this.visualizerPanel);
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.controlsPanel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -162,13 +161,13 @@
             this.panel1.Size = new System.Drawing.Size(842, 89);
             this.panel1.TabIndex = 2;
             // 
-            // panel5
+            // visualizerPanel
             // 
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel5.Location = new System.Drawing.Point(647, 0);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(195, 89);
-            this.panel5.TabIndex = 8;
+            this.visualizerPanel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.visualizerPanel.Location = new System.Drawing.Point(647, 0);
+            this.visualizerPanel.Name = "visualizerPanel";
+            this.visualizerPanel.Size = new System.Drawing.Size(195, 89);
+            this.visualizerPanel.TabIndex = 8;
             // 
             // panel4
             // 
@@ -191,10 +190,57 @@
             this.controlsPanel.Size = new System.Drawing.Size(435, 88);
             this.controlsPanel.TabIndex = 6;
             // 
+            // lblTotalTime
+            // 
+            this.lblTotalTime.AutoSize = true;
+            this.lblTotalTime.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalTime.ForeColor = System.Drawing.Color.White;
+            this.lblTotalTime.Location = new System.Drawing.Point(377, 18);
+            this.lblTotalTime.Name = "lblTotalTime";
+            this.lblTotalTime.Size = new System.Drawing.Size(50, 21);
+            this.lblTotalTime.TabIndex = 4;
+            this.lblTotalTime.Text = "00:00";
+            // 
+            // lblCurrentTime
+            // 
+            this.lblCurrentTime.AutoSize = true;
+            this.lblCurrentTime.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentTime.ForeColor = System.Drawing.Color.White;
+            this.lblCurrentTime.Location = new System.Drawing.Point(298, 18);
+            this.lblCurrentTime.Name = "lblCurrentTime";
+            this.lblCurrentTime.Size = new System.Drawing.Size(50, 21);
+            this.lblCurrentTime.TabIndex = 2;
+            this.lblCurrentTime.Text = "00:00";
+            // 
+            // btnPrevious
+            // 
+            this.btnPrevious.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.btnPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrevious.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrevious.ForeColor = System.Drawing.Color.White;
+            this.btnPrevious.Location = new System.Drawing.Point(129, 10);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(40, 38);
+            this.btnPrevious.TabIndex = 6;
+            this.btnPrevious.Text = "⏪";
+            this.btnPrevious.UseVisualStyleBackColor = false;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+            // 
+            // slash
+            // 
+            this.slash.AutoSize = true;
+            this.slash.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.slash.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.slash.Location = new System.Drawing.Point(354, 18);
+            this.slash.Name = "slash";
+            this.slash.Size = new System.Drawing.Size(17, 21);
+            this.slash.TabIndex = 3;
+            this.slash.Text = "/";
+            // 
             // seekBar
             // 
             this.seekBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(18)))), ((int)(((byte)(18)))));
-            this.seekBar.Location = new System.Drawing.Point(10, 47);
+            this.seekBar.Location = new System.Drawing.Point(10, 53);
             this.seekBar.Maximum = 0;
             this.seekBar.Name = "seekBar";
             this.seekBar.Size = new System.Drawing.Size(422, 45);
@@ -208,7 +254,7 @@
             this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNext.ForeColor = System.Drawing.Color.White;
-            this.btnNext.Location = new System.Drawing.Point(247, 9);
+            this.btnNext.Location = new System.Drawing.Point(245, 10);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(40, 38);
             this.btnNext.TabIndex = 5;
@@ -216,46 +262,13 @@
             this.btnNext.UseVisualStyleBackColor = false;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
-            // lblTotalTime
-            // 
-            this.lblTotalTime.AutoSize = true;
-            this.lblTotalTime.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalTime.ForeColor = System.Drawing.Color.White;
-            this.lblTotalTime.Location = new System.Drawing.Point(382, 17);
-            this.lblTotalTime.Name = "lblTotalTime";
-            this.lblTotalTime.Size = new System.Drawing.Size(50, 21);
-            this.lblTotalTime.TabIndex = 4;
-            this.lblTotalTime.Text = "00:00";
-            // 
-            // slash
-            // 
-            this.slash.AutoSize = true;
-            this.slash.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.slash.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.slash.Location = new System.Drawing.Point(359, 17);
-            this.slash.Name = "slash";
-            this.slash.Size = new System.Drawing.Size(17, 21);
-            this.slash.TabIndex = 3;
-            this.slash.Text = "/";
-            // 
-            // lblCurrentTime
-            // 
-            this.lblCurrentTime.AutoSize = true;
-            this.lblCurrentTime.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrentTime.ForeColor = System.Drawing.Color.White;
-            this.lblCurrentTime.Location = new System.Drawing.Point(303, 17);
-            this.lblCurrentTime.Name = "lblCurrentTime";
-            this.lblCurrentTime.Size = new System.Drawing.Size(50, 21);
-            this.lblCurrentTime.TabIndex = 2;
-            this.lblCurrentTime.Text = "00:00";
-            // 
             // btnPlayPause
             // 
             this.btnPlayPause.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.btnPlayPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPlayPause.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPlayPause.ForeColor = System.Drawing.Color.White;
-            this.btnPlayPause.Location = new System.Drawing.Point(189, 9);
+            this.btnPlayPause.Location = new System.Drawing.Point(187, 10);
             this.btnPlayPause.Name = "btnPlayPause";
             this.btnPlayPause.Size = new System.Drawing.Size(40, 38);
             this.btnPlayPause.TabIndex = 0;
@@ -510,20 +523,6 @@
             this.lblNavHome.TabIndex = 9;
             this.lblNavHome.Text = "♪ Home ♪";
             // 
-            // btnPrevious
-            // 
-            this.btnPrevious.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.btnPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPrevious.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrevious.ForeColor = System.Drawing.Color.White;
-            this.btnPrevious.Location = new System.Drawing.Point(131, 9);
-            this.btnPrevious.Name = "btnPrevious";
-            this.btnPrevious.Size = new System.Drawing.Size(40, 38);
-            this.btnPrevious.TabIndex = 6;
-            this.btnPrevious.Text = "⏪";
-            this.btnPrevious.UseVisualStyleBackColor = false;
-            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -563,7 +562,7 @@
         private System.Windows.Forms.Label lblCurrentTime;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.TrackBar seekBar;
-        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel visualizerPanel;
         private System.Windows.Forms.Panel controlsPanel;
         private System.Windows.Forms.ListView songListView;
         private System.Windows.Forms.ColumnHeader Title;
