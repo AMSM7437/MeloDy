@@ -62,13 +62,12 @@
             this.lblNowPlaying = new System.Windows.Forms.Label();
             this.lblArtist = new System.Windows.Forms.Label();
             this.lblAlbumName = new System.Windows.Forms.Label();
-            this.v = new System.Windows.Forms.Panel();
-            this.btnAddSong = new System.Windows.Forms.Button();
-            this.btnAddSongsToPlaylist = new System.Windows.Forms.Button();
-            this.btnAddPlaylist = new System.Windows.Forms.Button();
-            this.playlistListBox = new System.Windows.Forms.ListBox();
+            this.Drawer = new System.Windows.Forms.Panel();
             this.btnSyncCache = new System.Windows.Forms.Button();
             this.btnChangeMusicPath = new System.Windows.Forms.Button();
+            this.lblSeperator = new System.Windows.Forms.Label();
+            this.lblNavPlaylist = new System.Windows.Forms.Label();
+            this.lblNavHome = new System.Windows.Forms.Label();
             this.mainPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.controlsPanel.SuspendLayout();
@@ -76,7 +75,7 @@
             this.headerPanel.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAlbumArt)).BeginInit();
-            this.v.SuspendLayout();
+            this.Drawer.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPanel
@@ -85,7 +84,7 @@
             this.mainPanel.Controls.Add(this.songListView);
             this.mainPanel.Controls.Add(this.panel1);
             this.mainPanel.Controls.Add(this.headerPanel);
-            this.mainPanel.Controls.Add(this.v);
+            this.mainPanel.Controls.Add(this.Drawer);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
@@ -448,58 +447,19 @@
             this.lblAlbumName.TabIndex = 6;
             this.lblAlbumName.Text = "Album";
             // 
-            // v
+            // Drawer
             // 
-            this.v.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.v.Controls.Add(this.btnAddSong);
-            this.v.Controls.Add(this.btnAddSongsToPlaylist);
-            this.v.Controls.Add(this.btnAddPlaylist);
-            this.v.Controls.Add(this.playlistListBox);
-            this.v.Controls.Add(this.btnSyncCache);
-            this.v.Controls.Add(this.btnChangeMusicPath);
-            this.v.Dock = System.Windows.Forms.DockStyle.Left;
-            this.v.Location = new System.Drawing.Point(0, 0);
-            this.v.Name = "v";
-            this.v.Size = new System.Drawing.Size(146, 625);
-            this.v.TabIndex = 3;
-            // 
-            // btnAddSong
-            // 
-            this.btnAddSong.Location = new System.Drawing.Point(15, 429);
-            this.btnAddSong.Name = "btnAddSong";
-            this.btnAddSong.Size = new System.Drawing.Size(75, 23);
-            this.btnAddSong.TabIndex = 16;
-            this.btnAddSong.Text = "add song ";
-            this.btnAddSong.UseVisualStyleBackColor = true;
-            this.btnAddSong.Click += new System.EventHandler(this.btnAddSong_Click);
-            // 
-            // btnAddSongsToPlaylist
-            // 
-            this.btnAddSongsToPlaylist.Location = new System.Drawing.Point(10, 378);
-            this.btnAddSongsToPlaylist.Name = "btnAddSongsToPlaylist";
-            this.btnAddSongsToPlaylist.Size = new System.Drawing.Size(75, 23);
-            this.btnAddSongsToPlaylist.TabIndex = 15;
-            this.btnAddSongsToPlaylist.Text = "delete";
-            this.btnAddSongsToPlaylist.UseVisualStyleBackColor = true;
-            // 
-            // btnAddPlaylist
-            // 
-            this.btnAddPlaylist.Location = new System.Drawing.Point(15, 349);
-            this.btnAddPlaylist.Name = "btnAddPlaylist";
-            this.btnAddPlaylist.Size = new System.Drawing.Size(75, 23);
-            this.btnAddPlaylist.TabIndex = 14;
-            this.btnAddPlaylist.Text = "add";
-            this.btnAddPlaylist.UseVisualStyleBackColor = true;
-            this.btnAddPlaylist.Click += new System.EventHandler(this.btnAddPlaylist_Click);
-            // 
-            // playlistListBox
-            // 
-            this.playlistListBox.FormattingEnabled = true;
-            this.playlistListBox.Location = new System.Drawing.Point(15, 265);
-            this.playlistListBox.Name = "playlistListBox";
-            this.playlistListBox.Size = new System.Drawing.Size(108, 69);
-            this.playlistListBox.TabIndex = 13;
-            this.playlistListBox.SelectedIndexChanged += new System.EventHandler(this.playlistListBox_SelectedIndexChanged);
+            this.Drawer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.Drawer.Controls.Add(this.btnSyncCache);
+            this.Drawer.Controls.Add(this.btnChangeMusicPath);
+            this.Drawer.Controls.Add(this.lblSeperator);
+            this.Drawer.Controls.Add(this.lblNavPlaylist);
+            this.Drawer.Controls.Add(this.lblNavHome);
+            this.Drawer.Dock = System.Windows.Forms.DockStyle.Left;
+            this.Drawer.Location = new System.Drawing.Point(0, 0);
+            this.Drawer.Name = "Drawer";
+            this.Drawer.Size = new System.Drawing.Size(146, 625);
+            this.Drawer.TabIndex = 3;
             // 
             // btnSyncCache
             // 
@@ -527,6 +487,42 @@
             this.btnChangeMusicPath.UseVisualStyleBackColor = false;
             this.btnChangeMusicPath.Click += new System.EventHandler(this.btnChangeMusicPath_Click);
             // 
+            // lblSeperator
+            // 
+            this.lblSeperator.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblSeperator.AutoSize = true;
+            this.lblSeperator.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeperator.ForeColor = System.Drawing.Color.White;
+            this.lblSeperator.Location = new System.Drawing.Point(15, 39);
+            this.lblSeperator.Name = "lblSeperator";
+            this.lblSeperator.Size = new System.Drawing.Size(115, 21);
+            this.lblSeperator.TabIndex = 11;
+            this.lblSeperator.Text = "_______________";
+            // 
+            // lblNavPlaylist
+            // 
+            this.lblNavPlaylist.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblNavPlaylist.AutoSize = true;
+            this.lblNavPlaylist.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNavPlaylist.ForeColor = System.Drawing.Color.White;
+            this.lblNavPlaylist.Location = new System.Drawing.Point(25, 69);
+            this.lblNavPlaylist.Name = "lblNavPlaylist";
+            this.lblNavPlaylist.Size = new System.Drawing.Size(94, 21);
+            this.lblNavPlaylist.TabIndex = 10;
+            this.lblNavPlaylist.Text = "♪ Playlist ♪";
+            // 
+            // lblNavHome
+            // 
+            this.lblNavHome.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblNavHome.AutoSize = true;
+            this.lblNavHome.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNavHome.ForeColor = System.Drawing.Color.White;
+            this.lblNavHome.Location = new System.Drawing.Point(27, 22);
+            this.lblNavHome.Name = "lblNavHome";
+            this.lblNavHome.Size = new System.Drawing.Size(84, 21);
+            this.lblNavHome.TabIndex = 9;
+            this.lblNavHome.Text = "♪ Home ♪";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -550,7 +546,8 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAlbumArt)).EndInit();
-            this.v.ResumeLayout(false);
+            this.Drawer.ResumeLayout(false);
+            this.Drawer.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -582,9 +579,12 @@
         private System.Windows.Forms.Label lblNowPlaying;
         private System.Windows.Forms.Label lblArtist;
         private System.Windows.Forms.Label lblAlbumName;
-        private System.Windows.Forms.Panel v;
+        private System.Windows.Forms.Panel Drawer;
         private System.Windows.Forms.Label lblTotalPlayTime;
         private System.Windows.Forms.Label lblTotalTracks;
+        private System.Windows.Forms.Label lblSeperator;
+        private System.Windows.Forms.Label lblNavPlaylist;
+        private System.Windows.Forms.Label lblNavHome;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.ComboBox cmbSearchType;
@@ -593,10 +593,6 @@
         private System.Windows.Forms.Label lblTimeIcon;
         private System.Windows.Forms.Button btnSyncCache;
         private System.Windows.Forms.Button btnPrevious;
-        private System.Windows.Forms.Button btnAddSongsToPlaylist;
-        private System.Windows.Forms.Button btnAddPlaylist;
-        private System.Windows.Forms.ListBox playlistListBox;
-        private System.Windows.Forms.Button btnAddSong;
     }
 }
 
