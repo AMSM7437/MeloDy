@@ -26,6 +26,7 @@ namespace MusicPlayer
 
         private string musicFolder;
         private string defaultMusicPathConfig = @".\musicPath.config";
+        private List<Playlist> playlists = new List<Playlist>();
         //private string playlistDirectory = @".\playlists";
         //List<Song> allSongs = new List<Song>();   
 
@@ -61,6 +62,26 @@ namespace MusicPlayer
 
 
         }
+        private void LoadPlaylists()
+        {
+            playlists = PlaylistManager.LoadPlaylists();
+            playlistListBox.Items.Clear();
+            foreach (var playlist in playlists)
+            {
+                playlistListBox.Items.Add(playlist.Name);
+            }
+        }
+        private void btnAddPlaylist_Click(object sender, EventArgs e)
+        {
+            string name =  Microsoft.VisualBasic.Interaction.InputBox("Enter playlist name:", "New Playlist", "My Playlist");
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                playlists.Add(new Playlist { Name = name });
+                PlaylistManager.SavePlaylists(playlists);
+                LoadPlaylists();
+            }
+        }
+
         private void changeMusicPath()
         {
             using (var folderDialog = new CommonOpenFileDialog())
@@ -386,13 +407,13 @@ namespace MusicPlayer
         {
             if (songListView.Items.Count == 0) return;
 
-            int prevIndex = songListView.Items.Count - 1; 
+            int prevIndex = songListView.Items.Count - 1;
             if (songListView.SelectedItems.Count > 0)
             {
                 prevIndex = songListView.SelectedIndices[0] - 1;
-                if (prevIndex < 0) 
+                if (prevIndex < 0)
                 {
-                    prevIndex = songListView.Items.Count - 1; 
+                    prevIndex = songListView.Items.Count - 1;
                 }
             }
 
@@ -546,7 +567,64 @@ namespace MusicPlayer
             GenerateMusicXmlCache();
         }
 
+        private void btnAddSong_Click(object sender, EventArgs e)
+        {
+
+            if (playlistListBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a playlist first.");
+                return;
+            }
+
+            var selectedPlaylist = playlists.Find(p => p.Name == playlistListBox.SelectedItem.ToString());
+
+            foreach (ListViewItem selectedItem in songListView.SelectedItems)
+            {
+                string songPath = selectedItem.Tag.ToString();
+                if (!selectedPlaylist.Songs.Contains(songPath))
+                    selectedPlaylist.Songs.Add(songPath);
+            }
+
+            PlaylistManager.SavePlaylists(playlists);
+
+
+        }
+
+        private void playlistListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (playlistListBox.SelectedItem == null)
+                return;
+
+            var selectedPlaylist = playlists.Find(p => p.Name == playlistListBox.SelectedItem.ToString());
+            songListView.Items.Clear();
+
+            foreach (var songPath in selectedPlaylist.Songs)
+            {
+                if (!File.Exists(songPath))
+                    continue;
+
+                var tagFile = TagLib.File.Create(songPath);
+                var item = new ListViewItem(tagFile.Tag.Title ?? Path.GetFileNameWithoutExtension(songPath));
+                item.SubItems.Add(tagFile.Tag.FirstPerformer ?? "Unknown Artist");
+                item.SubItems.Add(tagFile.Tag.Album ?? "Unknown Album");
+                item.SubItems.Add(tagFile.Properties.Duration.ToString(@"mm\:ss"));
+                item.SubItems.Add(tagFile.Tag.Year.ToString());
+                item.SubItems.Add(tagFile.Tag.Track.ToString());
+                item.Tag = songPath;
+                songListView.Items.Add(item);
+            }
+
+            lblTotalTracks.Text = $"{songListView.Items.Count} Tracks";
+            UpdateTotalPlayTime();
+        }
+
     }
+    public class Playlist
+    {
+        public string Name { get; set; }
+        public List<string> Songs { get; set; } = new List<string>();
+    }
+
     //public class Song
     //{
     //    public string Title { get; set; }
